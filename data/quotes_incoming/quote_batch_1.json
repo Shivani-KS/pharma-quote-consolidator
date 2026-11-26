@@ -1,1 +1,61 @@
 
+{
+  "batch_id": "QB-2026-11-01",
+  "submitted_by": "North Procurement Desk",
+  "quotes": [
+    {
+      "quote_id": "QT-5001",
+      "supplier": {
+        "id": "SUP-8821",
+        "name": "Apex Pharma Ingredients Ltd",
+        "country": "India"
+      },
+      "material": {
+        "code": "MAT-ALB-01",
+        "name": "Albumin Human 20% Sol"
+      },
+      "pricing": {
+        "unit_price_usd": 120.50,
+        "min_order_qty": 200,
+        "discount_pct": 5.0
+      },
+      "valid_until": "2026-12-31"
+    },
+    {
+      "quote_id": "QT-5002",
+      "supplier": {
+        "id": "SUP-4402",
+        "name": "BioSynth Global Logistics",
+        "country": "USA"
+      },
+      "material": {
+        "code": "MAT-INS-02",
+        "name": "Recombinant Human Insulin"
+      },
+      "pricing": {
+        "unit_price_usd": 450.00,
+        "min_order_qty": 100
+      },
+      "valid_until": "2026-12-15"
+    },
+    {
+      "quote_id": "QT-5003",
+      "supplier": {
+        "id": "SUP-3105",
+        "name": "ChemCore Excipients Pvt Ltd",
+        "country": "Germany"
+      },
+      "material": {
+        "code": "MAT-EXC-04",
+        "name": "Microcrystalline Cellulose"
+      },
+      "pricing": {
+        "unit_price_usd": 12.00,
+        "min_order_qty": 1000,
+        "discount_pct": 10.0
+      },
+      "valid_until": "2027-01-15"
+    }
+  ]
+}
+
