@@ -1,0 +1,60 @@
+
+{
+  "batch_id": "QB-2026-11-02",
+  "submitted_by": "South Procurement Desk",
+  "quotes": [
+    {
+      "quote_id": "QT-5002",
+      "supplier": {
+        "id": "SUP-4402",
+        "name": "BioSynth Global Logistics",
+        "country": "USA"
+      },
+      "material": {
+        "code": "MAT-INS-02",
+        "name": "Recombinant Human Insulin"
+      },
+      "pricing": {
+        "unit_price_usd": 450.00,
+        "min_order_qty": 100
+      },
+      "valid_until": "2026-12-15"
+    },
+    {
+      "quote_id": "QT-5004",
+      "supplier": {
+        "id": "SUP-7710",
+        "name": "SterileFill Packaging Corp",
+        "country": "India"
+      },
+      "material": {
+        "code": "MAT-PKG-12",
+        "name": "Blister Aluminum Foil"
+      },
+      "pricing": {
+        "unit_price_usd": 4.50,
+        "min_order_qty": 2500,
+        "discount_pct": 8.0
+      },
+      "valid_until": "2026-12-20"
+    },
+    {
+      "quote_id": "QT-5005",
+      "supplier": {
+        "id": "SUP-8821",
+        "name": "Apex Pharma Ingredients Ltd",
+        "country": "India"
+      },
+      "material": {
+        "code": "MAT-PAR-05",
+        "name": "Paracetamol Active Powder"
+      },
+      "pricing": {
+        "unit_price_usd": 18.75,
+        "min_order_qty": 500,
+        "discount_pct": 0.0
+      },
+      "valid_until": "2027-01-31"
+    }
+  ]
+}
