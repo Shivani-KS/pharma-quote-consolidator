@@ -1,0 +1,42 @@
+
+{
+  "batch_id": "QB-2026-11-03",
+  "submitted_by": "West Procurement Desk",
+  "quotes": [
+    {
+      "quote_id": "QT-5001",
+      "supplier": {
+        "id": "SUP-8821",
+        "name": "Apex Pharma Ingredients Ltd",
+        "country": "India"
+      },
+      "material": {
+        "code": "MAT-ALB-01",
+        "name": "Albumin Human 20% Sol"
+      },
+      "pricing": {
+        "unit_price_usd": 120.50,
+        "min_order_qty": 200,
+        "discount_pct": 5.0
+      },
+      "valid_until": "2026-12-31"
+    },
+    {
+      "quote_id": "QT-5006",
+      "supplier": {
+        "id": "SUP-9901",
+        "name": "Zenith Fine Chemicals"
+      },
+      "material": {
+        "code": "MAT-BIO-12",
+        "name": "Monoclonal Antibodies"
+      },
+      "pricing": {
+        "unit_price_usd": 620.00,
+        "min_order_qty": 50,
+        "discount_pct": 12.0
+      },
+      "valid_until": "2027-02-15"
+    }
+  ]
+}
