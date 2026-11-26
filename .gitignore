@@ -1,0 +1,42 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment variables
+.env
+.env.*
+
+# Configuration - protect database credentials
+config/config.ini
+
+# Local databases
+*.db
+*.sqlite
+
+
+# Logs
+*.log
+
+# IDE settings
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+build/
+dist/
+
+# database
+*.db
+*.sqlite
+*-journal
