@@ -61,8 +61,8 @@ RUN_TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
 
 # Define log file paths
 
-LOG_FILE = LOG_DIR / "pipeline.log"
-RUN_LOG_FILE = LOG_DIR / f"pipeline_{RUN_TIMESTAMP}.log"
+LOG_FILE = LOG_DIR / "consolidate_quotes.log"
+RUN_LOG_FILE = LOG_DIR / f"consolidate_quotes_{RUN_TIMESTAMP}.log"
 
 
 def initialize_logging():
