@@ -35,9 +35,11 @@ END
 import json
 import logging
 import sys
+import csv
 
 from pathlib import Path
 from datetime import datetime
+from datetime import timezone
 
 
 # ============================================================
@@ -384,9 +386,88 @@ def deduplicate_quotes(flattened_quotes):
 
     return unique_quotes, duplicates_skipped, invalid_quotes
 
+# ============================================================
+# STEP 5: CALCULATE DERIVED FINANCIAL METRICS & TIMESTAMPS
+# ============================================================
+
+CSV_COLUMNS = [
+    "quote_id",
+    "batch_id",
+    "submitted_by",
+    "supplier_id",
+    "supplier_name",
+    "supplier_country",
+    "material_code",
+    "material_name",
+    "unit_price_usd",
+    "min_order_qty",
+    "discount_pct",
+    "gross_order_value",
+    "net_order_value",
+    "valid_until",
+    "processed_at",
+]
+
+
+def enrich_quotes(unique_quotes):
+
+    logging.info(
+        "STEP 5 STARTED: Calculate derived financial metrics and timestamps"
+    )
+
+    enriched_quotes = []
+    processed_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+
+    for record in unique_quotes:
+        unit_price = record["unit_price_usd"]
+        min_order_qty = record["min_order_qty"]
+        discount_pct = record["discount_pct"]
+
+        gross_order_value = round(unit_price * min_order_qty, 2)
+        net_order_value = round(
+            gross_order_value * (1.0 - (discount_pct / 100.0)), 2
+        )
+
+        enriched_record = dict(record)
+        enriched_record["gross_order_value"] = gross_order_value
+        enriched_record["net_order_value"] = net_order_value
+        enriched_record["processed_at"] = processed_at
+
+        enriched_quotes.append(enriched_record)
+
+    logging.info(
+        "STEP 5 COMPLETED: Derived metrics calculated for %d unique quotes",
+        len(enriched_quotes)
+    )
+
+    return enriched_quotes
+
 
 # ============================================================
-# STEP 5: LOG EXECUTION DETAILS AND DISPLAY SUMMARY
+# STEP 6: EXPORT CONSOLIDATED QUOTES TO CSV
+# ============================================================
+
+def export_to_csv(enriched_quotes):
+
+    logging.info("STEP 6 STARTED: Export consolidated quotes to CSV")
+
+    output_file = OUTPUT_DIR / "consolidated_quotes.csv"
+
+    with open(output_file, "w", newline="", encoding="utf-8") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=CSV_COLUMNS)
+        writer.writeheader()
+        writer.writerows(enriched_quotes)
+
+    logging.info("CSV successfully written to: %s", output_file)
+    logging.info(
+        "STEP 6 COMPLETED: Exported %d records",
+        len(enriched_quotes)
+    )
+
+    return output_file
+
+# ============================================================
+# MAIN PIPELINE EXECUTION & SUMMARY
 # ============================================================
 
 def main():
@@ -430,11 +511,6 @@ def main():
             flattening_invalid + deduplication_invalid
         )
 
-        # Step 5: Execution summary
-
-        logging.info(
-            "STEP 5 STARTED: Generate execution summary"
-        )
 
         logging.info("=" * 60)
         logging.info("EXECUTION SUMMARY")
@@ -458,11 +534,22 @@ def main():
         print("Invalid quotes:", invalid_quotes)
         print("Unique quotes identified:", len(unique_quotes))
 
-        logging.info(
-            "STEP 5 COMPLETED: Execution summary generated"
-        )
 
-        # Return unique flattened records for the next pipeline stage
+        # Step 5: Calculate derived financial metrics and UTC timestamps
+        enriched_quotes = enrich_quotes(unique_quotes)
+
+        # Step 6: Export consolidated CSV report
+        export_to_csv(enriched_quotes)
+
+        # Final pipeline summary (spec format)
+        summary_line = (
+            f"Files scanned: {len(json_files)} | "
+            f"Total quotes read: {total_quotes_read} | "
+            f"Duplicates skipped: {duplicates_skipped} | "
+            f"Unique quotes written: {len(enriched_quotes)}"
+        )
+        logging.info(summary_line)
+        print(summary_line)
 
         return unique_quotes
 
@@ -480,7 +567,6 @@ def main():
                 Path(__file__).name,
                 datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             )
-
 
 # ============================================================
 # START SCRIPT EXECUTION
